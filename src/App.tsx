@@ -2,8 +2,8 @@ import { useItems } from './hooks/useItems';
 import { useInfiniteScroll } from './hooks/useInfiniteScroll';
 
 function App() {
-  const { isLoading, isEnd, items, setPageNum } = useItems();
-  const { loadMoreRef } = useInfiniteScroll(isLoading, isEnd, setPageNum);
+  const { isLoading, isEnd, items, loadMore } = useItems();
+  const { loadMoreRef } = useInfiniteScroll(isLoading, isEnd, loadMore);
 
   return (
     <section>

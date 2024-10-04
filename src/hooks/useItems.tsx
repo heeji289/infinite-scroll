@@ -9,13 +9,25 @@ export const useItems = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
 
+  const loadMore = () => {
+    if (!isLoading && !isEnd) {
+      setPageNum((prev) => prev + 1);
+    }
+  };
+
   const fetchItems = async (pageNum: number) => {
+    if (isLoading || isEnd) return;
+
     try {
       setIsLoading(true);
-
       const result = await getMockData(pageNum);
 
-      setItems((prev) => [...prev, ...result.datas]);
+      if (pageNum === 1) {
+        setItems(result.datas);
+      } else {
+        setItems((prev) => [...prev, ...result.datas]);
+      }
+
       setIsEnd(result.isEnd);
     } catch (err) {
       setIsError(true);
@@ -33,5 +45,6 @@ export const useItems = () => {
     isEnd,
     items,
     setPageNum,
+    loadMore,
   };
 };

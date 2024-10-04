@@ -3,14 +3,14 @@ import { useEffect, useRef } from 'react';
 export const useInfiniteScroll = (
   isLoading: boolean,
   isEnd: boolean,
-  setPageNum: React.Dispatch<React.SetStateAction<number>>
+  loadMore: () => void
 ) => {
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
   const observerCallback = (entries: IntersectionObserverEntry[]) => {
     const target = entries[0];
     if (target.isIntersecting && !isLoading && !isEnd) {
-      setPageNum((prev) => prev + 1);
+      loadMore();
     }
   };
 
